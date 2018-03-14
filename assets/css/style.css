@@ -1,0 +1,35 @@
+body {
+    background-image: url("../images/pink dust.png");
+}
+
+.btn, .btn-danger {
+    color: white;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.form-control {
+    margin-top: 100px;
+}
+
+/* button */
+button.btn.btn-outline-secondary {
+   margin-top: 100px;
+   height: 40px;
+   margin-left: 0px;
+   margin-right: 100px;
+}
+
+
+
+#textBox {
+    margin-left: 800px;
+    margin-top: 30px;
+    margin-right: 50px;
+    color: white;
+}
+
+
+#animalButtons {
+    margin-left: 20px;
+}
