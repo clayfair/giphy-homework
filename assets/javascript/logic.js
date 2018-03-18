@@ -11,7 +11,11 @@ var panel = {
     createButtons: function () {
         for (var i = 0; i < heroTags.length; i++) {
             //create a button for each button tag and set a 'data-' class
-            buttonPanel.append("<button type='button' class='btn btn-danger' data-hero='" + heroTags[i] + "'>" + heroTags[i] + "</button>");
+            var button = $("<button>");
+            var hero = heroTags[i];
+            button.append(hero);
+            button.addClass(hero);
+            buttonPanel.append(button);
         }
     }
 }
@@ -24,56 +28,63 @@ window.onload = function () {
 
 //on click for each button (this) hit giphy API to search for GIFS that === (this) button's 'data-' value
 
-$("#animalButtons").on("click", function () {
-    // Grabbing and storing the data-hero property value from the button
-    var hero = $(this).children("button").attr('data-hero');
+$(document).ready(function() {
+    $(document).on("click", "button", function () {
+        // Grabbing and storing the data-hero property value from the button
+        var heroClass = $(this).attr('class');
+    
+        //for some reason it's only displaying 'Sheryl Sandberg' or the first ith even when the inspector clearly shows different data-heroes
+        console.log(heroClass);
+});
 
-    //for some reason it's only displaying 'Sheryl Sandberg' or the first ith even when the inspector clearly shows different data-heroes
-    console.log(hero);
+
+
+
+
 
 
     //--   ONCE I FIGURE OUT HOW TO ACCESS HERO I CAN THEN USE IT FOR THE API TO APPEND IMAGES AND RATINGS -- 
     
 
     // Constructing a queryURL using the animal name
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        hero + "&api_key=dc6zaTOxFJmzC&limit=10";
+    // var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+    //     hero + "&api_key=dc6zaTOxFJmzC&limit=10";
 
-    // Performing an AJAX request with the queryURL
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    })
-        // After data comes back from the request
-        .then(function (response) {
-            console.log(queryURL);
+    // // Performing an AJAX request with the queryURL
+    // $.ajax({
+    //     url: queryURL,
+    //     method: "GET"
+    // })
+    //     // After data comes back from the request
+    //     .then(function (response) {
+    //         console.log(queryURL);
 
-            console.log(response);
-            // storing the data from the AJAX request in the results variable
-            var results = response.data;
+    //         console.log(response);
+    //         // storing the data from the AJAX request in the results variable
+    //         var results = response.data;
 
-            // Looping through each result item
-            for (var i = 0; i < results.length; i++) {
+    //         // Looping through each result item
+    //         for (var i = 0; i < results.length; i++) {
 
-                // Creating and storing a div tag
-                var heroDiv = $("<div>");
+    //             // Creating and storing a div tag
+    //             var heroDiv = $("<div>");
 
-                // Creating a paragraph tag with the result item's rating
-                var p = $("<p>").text("Rating: " + results[i].rating);
+    //             // Creating a paragraph tag with the result item's rating
+    //             var p = $("<p>").text("Rating: " + results[i].rating);
 
-                // Creating and storing an image tag
-                var heroImage = $("<img>");
-                // Setting the src attribute of the image to a property pulled off the result item
-                heroImage.attr("src", results[i].images.fixed_height.url);
+    //             // Creating and storing an image tag
+    //             var heroImage = $("<img>");
+    //             // Setting the src attribute of the image to a property pulled off the result item
+    //             heroImage.attr("src", results[i].images.fixed_height.url);
 
-                // Appending the paragraph and image tag to the animalDiv
-                heroDiv.append(p);
-                heroDiv.append(heroImage);
+    //             // Appending the paragraph and image tag to the animalDiv
+    //             heroDiv.append(p);
+    //             heroDiv.append(heroImage);
 
-                // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
-                $("#gifs-appear-here").prepend(heroDiv);
-            }
-        });
+    //             // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
+    //             $("#gifs-appear-here").prepend(heroDiv);
+    //         }
+    //     });
 });
 
 //populate 10 GIFS and "rating: " + GIFrating 
